@@ -91,9 +91,11 @@
           .enter()
           .append('rect')
             .attr('x', function(d) {return x(d.cluster); })
-            .attr('y', function(d) {return y(d.avalue); })
+            // .attr('y', function(d) {return y(d.avalue); })
             .attr('width', x.bandwidth())
-            .attr('height', function(d) {return height - y(d.avalue); })
+            // .attr('height', function(d) {return height - y(d.avalue); })
+            .attr("height", function(d) { return height - y(0); }) // always equal to 0
+            .attr("y", function(d) { return y(0); })
             .attr('fill', '#D3D3D3')
             .on("mousemove", function(d){
             tooltip
@@ -103,6 +105,15 @@
               .html((d.avalue));
             })
     		    .on("mouseout", function(d){ tooltip.style("display", "none");});
+
+          // Animation
+          values_svg.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .attr("y", function(d) { return y(d.avalue); })
+            .attr("height", function(d) { return height - y(d.avalue); })
+            .delay(function(d, i){return(i*100)})
+
       // _______________
       // Units Barchart
       // _______________
@@ -127,7 +138,6 @@
           .attr("transform", "translate(-10,0)rotate(-45)")
           .style("text-anchor", "end");
 
-
         // Y axis
 
         var y = d3.scaleLinear()
@@ -143,9 +153,11 @@
           .enter()
           .append('rect')
             .attr('x', function(d) {return x(d.cluster); })
-            .attr('y', function(d) {return y(d.aunits); })
+            // .attr('y', function(d) {return y(d.aunits); })
             .attr('width', x.bandwidth())
-            .attr('height', function(d) {return height - y(d.aunits); })
+            // .attr('height', function(d) {return height - y(d.aunits); })
+            .attr("height", function(d) { return height - y(0); }) // always equal to 0
+            .attr("y", function(d) { return y(0); })
             .attr('fill', '#D3D3D3')
             .on("mousemove", function(d){
             tooltip
@@ -155,6 +167,15 @@
               .html((d.aunits));
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
+
+        // Animation
+        
+        units_svg.selectAll("rect")
+          .transition()
+          .duration(2000)
+          .attr("y", function(d) { return y(d.aunits); })
+          .attr("height", function(d) { return height - y(d.aunits); })
+          .delay(function(d, i){return(i*100)})
 
       });
 
