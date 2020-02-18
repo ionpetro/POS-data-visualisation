@@ -12,15 +12,16 @@
 
 <body>
     <h1>Pos Data</h1>
-    <button onclick="changeColor('Dairy')">Dairy</button>
-    <button onclick="changeColor('Personal Care')">Personal Care</button>
-    <button onclick="changeColor('Snack')">Snack</button>
-    <button onclick="changeColor('House Cleaning')">House Cleaning</button>
-    <button onclick="changeColor('General Food')">General Food</button>
-    <button onclick="changeColor('Healthy Food')">Healthy Food</button>
+    <button onclick="update('Dairy')">Dairy</button>
+    <button onclick="update('Personal Care')">Personal Care</button>
+    <button onclick="update('Snack')">Snack</button>
+    <button onclick="update('House Cleaning')">House Cleaning</button>
+    <button onclick="update('General Food')">General Food</button>
+    <button onclick="update('Healthy Food')">Healthy Food</button>
 
     <div id='values_barchart'></div>
     <div id='units_barchart'></div>
+    <div id='weekday_barchart'></div>
     <!-- Add resources -->
     <!-- https://blog.risingstack.com/d3-js-tutorial-bar-charts-with-javascript/ -->
     <!-- https://www.d3-graph-gallery.com/graph/barplot_button_data_simple.html -->
@@ -46,7 +47,6 @@
       // initialize promise
       var pos = d3.csv('average_basket.csv');
       pos.then(function (data) {
-        console.log(data)
 
       // X axis
         var x = d3.scaleBand()
@@ -126,9 +126,63 @@
 
       });
 
+      // _______________
+      // Weekday Barchart
+      // _______________
+
+      const weekday_svg = d3.select('#weekday_barchart')
+        .append('svg')
+          .attr('width', width + margin.left + margin.right)
+          .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+          .attr("transform",  "translate(" + margin.left + "," + margin.top + ")");
+      
+      // initialize promise
+      var pos = d3.csv('weekday_cluster.csv');
+      pos.then(function (data) {
+        console.log(data)
+
+      // X axis
+      var x = d3.scaleBand()
+          .range([ 0, width ])
+          .domain(data.map(function(d) { return d.weekday; }))
+          .padding(0.2);
+          weekday_svg.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x))
+
+        // Y axis
+        
+        var y = d3.scaleLinear()
+          .domain([0, 1600])
+          .range([height, 0]);
+          weekday_svg.append("g")
+          .call(d3.axisLeft(y));
+
+        // Bars
+
+        weekday_svg.selectAll("mybar")
+          .data(data.filter(function(d){return d.cluster == 'Snack';}))
+          .enter()
+          .append("rect")
+            .attr("x", function(d) { return x(d.weekday); })
+            .attr("y", function(d) { return x(d.value); })
+            .attr("width", x.bandwidth())
+            .attr("height", function(d) { return height-  y(d.value); })
+            .attr("fill", "#D3D3D3")
+          
+        console.log(height)
+        console.log(y(d.value))
+
+
+      });
+
+
+
+
     // This function is called by the buttons on top of the plot
     
-    function changeColor(cluster) {
+    function update(cluster) {
 
       d3.selectAll('rect')
         .style('fill', '#D3D3D3')
@@ -137,6 +191,7 @@
         .filter(function(d) {return d.cluster == cluster; })
         .transition()
         .style('fill', 'blue')
+
   }
     </script>        
     
