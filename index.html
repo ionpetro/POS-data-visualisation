@@ -12,6 +12,13 @@
 
 <body>
     <h1>Pos Data</h1>
+    <button onclick="changeColor('Dairy')">Dairy</button>
+    <button onclick="changeColor('Personal Care')">Personal Care</button>
+    <button onclick="changeColor('Snack')">Snack</button>
+    <button onclick="changeColor('House Cleaning')">House Cleaning</button>
+    <button onclick="changeColor('General Food')">General Food</button>
+    <button onclick="changeColor('Healthy Food')">Healthy Food</button>
+
     <div id='values_barchart'></div>
     <div id='units_barchart'></div>
     <!-- Add resources -->
@@ -118,6 +125,19 @@
 
 
       });
+
+    // This function is called by the buttons on top of the plot
+    
+    function changeColor(cluster) {
+
+      d3.selectAll('rect')
+        .style('fill', '#D3D3D3')
+
+      d3.selectAll('rect')
+        .filter(function(d) {return d.cluster == cluster; })
+        .transition()
+        .style('fill', 'blue')
+  }
     </script>        
     
 </body>
