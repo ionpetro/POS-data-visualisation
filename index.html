@@ -1,6 +1,24 @@
 <html>
 <head>
+  
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
   <style>
+    div {
+      display: inline;
+    }
+    
+    button {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    background-color: #538fbe;
+    padding: 10px 50px;
+    font-size: 15px;
+    border: 1px solid #2d6898;
+    }
+
     .toolTip {
       position: absolute;
       display: none;
@@ -10,7 +28,9 @@
       border: 1px solid #000000;
       padding: 14px;
       text-align: center;
+      font-family: 'Roboto', sans-serif;
     }
+
   </style>
     <meta charset="utf-8">
 
@@ -19,12 +39,16 @@
     <!-- Color scale -->
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
-    <title>POS - data</title>
+    <title>POS data</title>
 
 </head>
 
-<body>
+<body style="text-align: center;">
     <h1>Pos Data</h1>
+    <div id="value"></div>
+    <div id="unit"></div><br>
+    <div id='values_barchart'></div>
+    <div id='units_barchart'></div><br>
     <button onclick="update('Dairy')">Dairy</button>
     <button onclick="update('Personal Care')">Personal Care</button>
     <button onclick="update('Snack')">Snack</button>
@@ -32,8 +56,7 @@
     <button onclick="update('General Food')">General Food</button>
     <button onclick="update('Healthy Food')">Healthy Food</button>
 
-    <div id='values_barchart'></div>
-    <div id='units_barchart'></div>
+
     <div id='weekday_barchart'></div>
 
     <!-- Add resources -->
@@ -42,13 +65,14 @@
     <!-- http://bl.ocks.org/jonahwilliams/2f16643b999ada7b1909-->
     <script>
 
+      var cluster = 'Dairy'; 
+
       // chart size
       var margin = {top: 30, right: 30, bottom: 70, left: 60},
       width = 460 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
 
       var tooltip = d3.select("body").append("div").attr("class", "toolTip");
-
 
       // _______________
       // Values Barchart
@@ -169,7 +193,7 @@
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
 
         // Animation
-        
+
         units_svg.selectAll("rect")
           .transition()
           .duration(2000)
@@ -180,17 +204,32 @@
       });
 
     // This function is called by the buttons on top of the plot
-    
     function update(cluster) {
 
-      d3.selectAll('rect')
-        .style('fill', '#D3D3D3')
+      var pos = d3.csv('average_basket.csv');
+      pos.then(function (data) {
 
-      d3.selectAll('rect')
-        .filter(function(d) {return d.cluster == cluster; })
-        .transition()
-        .style('fill', 'blue')
+      for(key in data) {
+        if (data[key]['cluster'] == cluster) {
+          console.log(data[key]['avalue']);
+          document.getElementById("value").innerHTML = data[key]['avalue'];
+          document.getElementById("unit").innerHTML = data[key]['aunits'];
+
+        }
+      }
+    });
+
+    d3.selectAll('rect')
+      .style('fill', '#D3D3D3')
+
+    d3.selectAll('rect')
+      .filter(function(d) {return d.cluster == cluster; })
+      .transition()
+      .style('fill', 'blue')
+
     }
+
+    
 
     </script>
     
