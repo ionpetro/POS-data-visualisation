@@ -4,6 +4,10 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
   <style>
+    
+    html {
+      font-family: 'Roboto', sans-serif;
+    }
     div {
       display: inline;
     }
@@ -14,7 +18,7 @@
     color: #fff;
     font-weight: bold;
     background-color: #538fbe;
-    padding: 10px 50px;
+    padding: 5px 30px;
     font-size: 15px;
     border: 1px solid #2d6898;
     }
@@ -54,11 +58,17 @@
     <button onclick="update('Snack')">Snack</button>
     <button onclick="update('House Cleaning')">House Cleaning</button>
     <button onclick="update('General Food')">General Food</button>
-    <button onclick="update('Healthy Food')">Healthy Food</button>
-
-
-    <div id='weekday_barchart'></div>
-
+    <button onclick="update('Healthy Food')">Healthy Food</button><br>
+    <select id="change_barplot" onchange="getCluster(this)">
+      <option value="">Select Cluster</option>
+      <option value="Dairy">Dairy</option>
+      <option value="Personal Care">Personal Care</option>
+      <option value="Snack">Snack</option>
+      <option value="House Cleaning">House Cleaning</option>
+      <option value="General Food">General Food</option>
+      <option value="Healthy Food">Healthy Food</option>
+    </select>
+    <div id='changing_barplot'></div>
     <!-- Add resources -->
     <!-- https://blog.risingstack.com/d3-js-tutorial-bar-charts-with-javascript/ -->
     <!-- https://www.d3-graph-gallery.com/graph/barplot_button_data_simple.html -->
@@ -203,6 +213,59 @@
 
       });
 
+      // get the spesific cluster
+
+        var ch_barplot = d3.select("#changing_barplot")
+          .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+
+        function getCluster(cluster) {
+          var cluster = cluster.value;
+          console.log(cluster)
+        // initialize promise
+        var pos = d3.csv('weekday_cluster.csv');
+        pos.then(function (data) {
+          // X axis
+          var x = d3.scaleBand()
+            .range([ 0, width ])
+            .domain(data.map(function(d) { return d.weekday; }))
+            .padding(0.2);
+          ch_barplot.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+
+          // Add Y axis
+          var y = d3.scaleLinear()
+            .domain([0, 1600])
+            .range([ height, 0]);
+          ch_barplot.append("g")
+            .attr("class", "myYaxis")
+            .call(d3.axisLeft(y));
+
+          var u = ch_barplot.selectAll("rect")
+            .data(data.filter(function(d){ return d.cluster == cluster;}))
+
+            u
+            .enter()
+            .append("rect")
+            .merge(u)
+            .transition()
+            .duration(1000)
+              .attr("x", function(d) {console.log(d.weekday); return x(d.weekday); })
+              .attr("y", function(d) {console.log(d.value); return y(d.value); })
+              .attr("width", x.bandwidth())
+              .attr("height", function(d) { return height - y(d.value); })
+              .attr("fill", "#D3D3D3")
+          
+      });
+        }
+
+      
+
     // This function is called by the buttons on top of the plot
     function update(cluster) {
 
@@ -211,10 +274,9 @@
 
       for(key in data) {
         if (data[key]['cluster'] == cluster) {
-          console.log(data[key]['avalue']);
+          // console.log(data[key]['avalue']);
           document.getElementById("value").innerHTML = data[key]['avalue'];
           document.getElementById("unit").innerHTML = data[key]['aunits'];
-
         }
       }
     });
