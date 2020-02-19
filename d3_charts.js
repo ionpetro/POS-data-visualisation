@@ -55,7 +55,7 @@ var cluster = 'Dairy';
             // .attr('height', function(d) {return height - y(d.avalue); })
             .attr("height", function(d) { return height - y(0); }) // always equal to 0
             .attr("y", function(d) { return y(0); })
-            .attr('fill', '#D3D3D3')
+            .attr('fill', '#4285F4')
             .on("mousemove", function(d){
             tooltip
               .style("left", d3.event.pageX - 50 + "px")
@@ -126,7 +126,7 @@ var cluster = 'Dairy';
             // .attr('height', function(d) {return height - y(d.aunits); })
             .attr("height", function(d) { return height - y(0); }) // always equal to 0
             .attr("y", function(d) { return y(0); })
-            .attr('fill', '#D3D3D3')
+            .attr('fill', '#4285F4')
             .on("mousemove", function(d){
             tooltip
               .style("left", d3.event.pageX - 50 + "px")
@@ -198,16 +198,16 @@ var cluster = 'Dairy';
               .attr("y", function(d) {console.log(d.value); return y(d.value); })
               .attr("width", x.bandwidth())
               .attr("height", function(d) { return height - y(d.value); })
-              .attr("fill", "#D3D3D3")
+              .attr("fill", "#4285F4")
           
           // Chart Title
-          
+
           ch_barplot.append('text')
             .attr("x", (width / 2))             
             .attr("y", 0 - (margin.top / 2))
             .attr("text-anchor", "middle")  
-            .style("font-size", "20px") 
-            .text("Basket Count per Weekday and Cluster");
+            .style("font-size", "20px")
+            .text("Baskets per Weekday and Cluster");
           
       });
 
@@ -247,7 +247,7 @@ var cluster = 'Dairy';
               .attr("y", function(d) {console.log(d.value); return y(d.value); })
               .attr("width", x.bandwidth())
               .attr("height", function(d) { return height - y(d.value); })
-              .attr("fill", "#D3D3D3")
+              .attr("fill", "#4285F4")
           
       });
     }
@@ -268,11 +268,11 @@ var cluster = 'Dairy';
     });
 
     d3.selectAll('rect')
-      .style('fill', '#D3D3D3')
+      .style('fill', '#4285F4')
 
     d3.selectAll('rect')
       .filter(function(d) {return d.cluster == cluster; })
       .transition()
-      .style('fill', 'blue')
+      .style('fill', '#0d47a1')
 
     }

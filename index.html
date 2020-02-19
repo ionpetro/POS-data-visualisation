@@ -2,6 +2,7 @@
 <head>
   
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="utf-8">
 
@@ -24,23 +25,31 @@
     <img src="basket.png">
     <div class="barinfo" id="unit"></div><br>
   </div>
-  <div id='values_barchart'></div>
-  <div id='units_barchart'></div><br>
+  <div class="grid-container">
+    <div id='values_barchart'></div>
+    <div id='units_barchart'></div><br>
+  </div>
+  <div class="buttons">
   <button onclick="update('Dairy')">Dairy</button>
   <button onclick="update('Personal Care')">Personal Care</button>
   <button onclick="update('Snack')">Snack</button>
   <button onclick="update('House Cleaning')">House Cleaning</button>
   <button onclick="update('General Food')">General Food</button>
   <button onclick="update('Healthy Food')">Healthy Food</button><br>
-  <select id="change_barplot" onchange="getCluster(this)">
-    <option value="Dairy">Dairy</option>
-    <option value="Personal Care">Personal Care</option>
-    <option value="Snack">Snack</option>
-    <option value="House Cleaning">House Cleaning</option>
-    <option value="General Food">General Food</option>
-    <option value="Healthy Food">Healthy Food</option>
-  </select>
+  </div>
+  <div class="grid-container">
+  <div>
+    <select class="custom-select" id="change_barplot" onchange="getCluster(this)">
+      <option value="Dairy">Dairy</option>
+      <option value="Personal Care">Personal Care</option>
+      <option value="Snack">Snack</option>
+      <option value="House Cleaning">House Cleaning</option>
+      <option value="General Food">General Food</option>
+      <option value="Healthy Food">Healthy Food</option>
+    </select>
+  </div>
   <div id='changing_barplot'></div>
+  </div>
   
   <script src="d3_charts.js"></script>
 </body>
