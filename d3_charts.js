@@ -1,6 +1,8 @@
+// initial cluster to display
+
 var cluster = 'Dairy'; 
 
-      // chart size
+      // charts size
       var margin = {top: 30, right: 30, bottom: 70, left: 60},
       width = 460 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
@@ -62,6 +64,15 @@ var cluster = 'Dairy';
               .html((d.avalue));
             })
     		    .on("mouseout", function(d){ tooltip.style("display", "none");});
+
+          // Chart Title
+          values_svg.append('text')
+            .attr("x", (width / 2))             
+            .attr("y", 0 - (margin.top / 2))
+            .attr("text-anchor", "middle")  
+            .style("font-size", "20px") 
+            .text("Average Basket Value per Cluster");
+
 
           // Animation
           values_svg.selectAll("rect")
@@ -133,8 +144,17 @@ var cluster = 'Dairy';
           .attr("y", function(d) { return y(d.aunits); })
           .attr("height", function(d) { return height - y(d.aunits); })
           .delay(function(d, i){return(i*100)})
-
+        
+          // Chart Title
+        units_svg.append('text')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "20px") 
+        .text("Average Basket Units per Cluster");
       });
+
+      
 
       // get the spesific cluster
 
@@ -145,6 +165,51 @@ var cluster = 'Dairy';
           .append("g")
             .attr("transform",
                   "translate(" + margin.left + "," + margin.top + ")");
+          
+        var pos = d3.csv('weekday_cluster.csv');
+        pos.then(function (data) {
+          // X axis
+          var x = d3.scaleBand()
+            .range([ 0, width ])
+            .domain(data.map(function(d) { return d.weekday; }))
+            .padding(0.2);
+          ch_barplot.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+
+          // Add Y axis
+          var y = d3.scaleLinear()
+            .domain([0, 1600])
+            .range([ height, 0]);
+          ch_barplot.append("g")
+            .attr("class", "myYaxis")
+            .call(d3.axisLeft(y));
+
+          var u = ch_barplot.selectAll("rect")
+            .data(data.filter(function(d){ return d.cluster == cluster;}))
+
+            u
+            .enter()
+            .append("rect")
+            .merge(u)
+            .transition()
+            .duration(1000)
+              .attr("x", function(d) {console.log(d.weekday); return x(d.weekday); })
+              .attr("y", function(d) {console.log(d.value); return y(d.value); })
+              .attr("width", x.bandwidth())
+              .attr("height", function(d) { return height - y(d.value); })
+              .attr("fill", "#D3D3D3")
+          
+          // Chart Title
+          
+          ch_barplot.append('text')
+            .attr("x", (width / 2))             
+            .attr("y", 0 - (margin.top / 2))
+            .attr("text-anchor", "middle")  
+            .style("font-size", "20px") 
+            .text("Basket Count per Weekday and Cluster");
+          
+      });
 
         function getCluster(cluster) {
           var cluster = cluster.value;

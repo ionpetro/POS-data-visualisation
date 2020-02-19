@@ -6,41 +6,42 @@
   <meta charset="utf-8">
 
   <script src="https://d3js.org/d3.v5.min.js"></script>
-    
+  
   <!-- Color scale -->
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-
+  
   <title>POS data</title>
-
+  
 </head>
 
 <body style="text-align: center;">
-    <h1>Pos Data</h1>
-    <div id="value"></div>
-    <div id="unit"></div><br>
-    <div id='values_barchart'></div>
-    <div id='units_barchart'></div><br>
-    <button onclick="update('Dairy')">Dairy</button>
-    <button onclick="update('Personal Care')">Personal Care</button>
-    <button onclick="update('Snack')">Snack</button>
-    <button onclick="update('House Cleaning')">House Cleaning</button>
-    <button onclick="update('General Food')">General Food</button>
-    <button onclick="update('Healthy Food')">Healthy Food</button><br>
-    <select id="change_barplot" onchange="getCluster(this)">
-      <option value="">Select Cluster</option>
-      <option value="Dairy">Dairy</option>
-      <option value="Personal Care">Personal Care</option>
-      <option value="Snack">Snack</option>
-      <option value="House Cleaning">House Cleaning</option>
-      <option value="General Food">General Food</option>
-      <option value="Healthy Food">Healthy Food</option>
-    </select>
-    <div id='changing_barplot'></div>
-    <!-- Add resources -->
-    <!-- https://blog.risingstack.com/d3-js-tutorial-bar-charts-with-javascript/ -->
-    <!-- https://www.d3-graph-gallery.com/graph/barplot_button_data_simple.html -->
-    <!-- http://bl.ocks.org/jonahwilliams/2f16643b999ada7b1909-->
-    <script src="d3_charts.js"></script>
-    
+  <h1>Pos Data</h1>
+  <div id="barinfodiv">
+    <img src="money.png">
+    <div class="barinfo" id="value"></div>
+  </div>
+  <div id="barinfodiv">
+    <img src="basket.png">
+    <div class="barinfo" id="unit"></div><br>
+  </div>
+  <div id='values_barchart'></div>
+  <div id='units_barchart'></div><br>
+  <button onclick="update('Dairy')">Dairy</button>
+  <button onclick="update('Personal Care')">Personal Care</button>
+  <button onclick="update('Snack')">Snack</button>
+  <button onclick="update('House Cleaning')">House Cleaning</button>
+  <button onclick="update('General Food')">General Food</button>
+  <button onclick="update('Healthy Food')">Healthy Food</button><br>
+  <select id="change_barplot" onchange="getCluster(this)">
+    <option value="Dairy">Dairy</option>
+    <option value="Personal Care">Personal Care</option>
+    <option value="Snack">Snack</option>
+    <option value="House Cleaning">House Cleaning</option>
+    <option value="General Food">General Food</option>
+    <option value="Healthy Food">Healthy Food</option>
+  </select>
+  <div id='changing_barplot'></div>
+  
+  <script src="d3_charts.js"></script>
 </body>
 </html>
