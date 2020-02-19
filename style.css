@@ -1,0 +1,29 @@
+html {
+font-family: 'Roboto', sans-serif;
+}
+div {
+    display: inline;
+}
+
+button {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    background-color: #538fbe;
+    padding: 5px 30px;
+    font-size: 15px;
+    border: 1px solid #2d6898;
+}
+
+.toolTip {
+    position: absolute;
+    display: none;
+    min-width: 80px;
+    height: auto;
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #000000;
+    padding: 14px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
