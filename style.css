@@ -46,6 +46,9 @@ select{
     margin: 200px 0px;
     font-size:14px;
 }
+
+.axis { font: 14px 'Poppins'; }
+.axis-text {font: 'Poppins'; }
  
 .grid-container {
     display: grid;
@@ -68,7 +71,7 @@ select{
 
 .barinfo {
     padding: 40px 30px;
-    font-size: 18;
+    font-size: 22;
     font-weight: bold;
     
 }

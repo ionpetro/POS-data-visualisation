@@ -30,6 +30,7 @@ var cluster = 'Dairy';
           .domain(data.map(function(d) { return d.cluster; }))
           .padding(0.2);
         values_svg.append("g")
+          .attr('class', 'axis-text')
           .attr("transform", "translate(0," + height + ")")
           .call(d3.axisBottom(x))
           .selectAll("text")
@@ -41,6 +42,7 @@ var cluster = 'Dairy';
           .domain([0, 25])
           .range([height, 0]);
         values_svg.append("g")
+          .attr('class', 'axis')
           .call(d3.axisLeft(y));
 
         
@@ -100,6 +102,7 @@ var cluster = 'Dairy';
           .domain(data.map(function(d) { return d.cluster; }))
           .padding(0.2);
         units_svg.append("g")
+          .attr('class', 'axis-text')
           .attr("transform", "translate(0," + height + ")")
           .call(d3.axisBottom(x))
           .selectAll("text")
@@ -112,6 +115,7 @@ var cluster = 'Dairy';
           .domain([0, 12])
           .range([height, 0]);
         units_svg.append("g")
+          .attr('class', 'axis')
           .call(d3.axisLeft(y));
         
         // Bars
@@ -174,15 +178,16 @@ var cluster = 'Dairy';
             .domain(data.map(function(d) { return d.weekday; }))
             .padding(0.2);
           ch_barplot.append("g")
+            .attr('class', 'axis-text')
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x))
 
           // Add Y axis
           var y = d3.scaleLinear()
-            .domain([0, 1600])
+            .domain([0, 1800])
             .range([ height, 0]);
           ch_barplot.append("g")
-            .attr("class", "myYaxis")
+            .attr('class', 'axis')
             .call(d3.axisLeft(y));
 
           var u = ch_barplot.selectAll("rect")
@@ -223,14 +228,16 @@ var cluster = 'Dairy';
             .domain(data.map(function(d) { return d.weekday; }))
             .padding(0.2);
           ch_barplot.append("g")
+            .attr('class', 'axis-text')
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x))
 
           // Add Y axis
           var y = d3.scaleLinear()
-            .domain([0, 1600])
+            .domain([0, 1800])
             .range([ height, 0]);
           ch_barplot.append("g")
+            .attr('class', 'axis')
             .attr("class", "myYaxis")
             .call(d3.axisLeft(y));
 
@@ -261,7 +268,7 @@ var cluster = 'Dairy';
       for(key in data) {
         if (data[key]['cluster'] == cluster) {
           // console.log(data[key]['avalue']);
-          document.getElementById("value").innerHTML = data[key]['avalue'];
+          document.getElementById("value").innerHTML = data[key]['avalue'] + '€';
           document.getElementById("unit").innerHTML = data[key]['aunits'];
         }
       }
