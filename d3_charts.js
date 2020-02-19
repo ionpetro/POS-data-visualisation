@@ -238,7 +238,6 @@ var cluster = 'Dairy';
             .range([ height, 0]);
           ch_barplot.append("g")
             .attr('class', 'axis')
-            .attr("class", "myYaxis")
             .call(d3.axisLeft(y));
 
           var u = ch_barplot.selectAll("rect")
@@ -255,6 +254,7 @@ var cluster = 'Dairy';
               .attr("width", x.bandwidth())
               .attr("height", function(d) { return height - y(d.value); })
               .attr("fill", "#4285F4")
+
           
       });
     }
@@ -268,8 +268,8 @@ var cluster = 'Dairy';
       for(key in data) {
         if (data[key]['cluster'] == cluster) {
           // console.log(data[key]['avalue']);
-          document.getElementById("value").innerHTML = data[key]['avalue'] + '€';
-          document.getElementById("unit").innerHTML = data[key]['aunits'];
+          document.getElementById("value").innerHTML = data[key]['avalue'] + ' €';
+          document.getElementById("unit").innerHTML = data[key]['aunits'] + ' items';
         }
       }
     });

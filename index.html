@@ -16,7 +16,14 @@
 </head>
 
 <body style="text-align: center;">
-  <h1>Pos Data</h1>
+  <h1>A POS Data Visualisation on Clustering</h1>
+  <hr>
+  <div>
+    <p>This is an attempt to implement web charts with <a href="https://d3js.org/">d3.js</a> library, as a bonus assignment for
+      my university course. The <strong>Point Of Sale</strong> data are only for educational reasons. The were
+     cleanced, tranformed and aggregated in order to be ready for data mining. Clustering was
+     implemented with <a href="https://rapidminer.com/">Rapid Miner</a> and the results are plotted below: </p>
+  </div>
   <div id="barinfodiv">
     <img src="money.png">
     <div class="barinfo" id="value"></div>
@@ -36,6 +43,12 @@
   <button onclick="update('House Cleaning')">House Cleaning</button>
   <button onclick="update('General Food')">General Food</button>
   <button onclick="update('Healthy Food')">Healthy Food</button><br>
+  </div>
+  <div>
+    <p>Below you can find a <strong>Baskets per Weekday and Cluster</strong> chart. Using the selector, you can pick the
+       cluster of your choice and on the chart to the right, the number of basket for each day of week will be shown. Notice
+       that Sunday is missing, since the Supermarket is not operating that day.
+    </p>
   </div>
   <div class="grid-container">
   <div>
