@@ -21,7 +21,7 @@ var cluster = 'Dairy';
           .attr("transform",  "translate(" + margin.left + "," + margin.top + ")");
       
       // initialize promise
-      var pos = d3.csv('average_basket.csv');
+      var pos = d3.csv('data/average_basket.csv');
       pos.then(function (data) {
 
       // X axis
@@ -170,7 +170,7 @@ var cluster = 'Dairy';
             .attr("transform",
                   "translate(" + margin.left + "," + margin.top + ")");
           
-        var pos = d3.csv('weekday_cluster.csv');
+        var pos = d3.csv('data/weekday_cluster.csv');
         pos.then(function (data) {
           // X axis
           var x = d3.scaleBand()
@@ -220,7 +220,7 @@ var cluster = 'Dairy';
           var cluster = cluster.value;
           console.log(cluster)
         // initialize promise
-        var pos = d3.csv('weekday_cluster.csv');
+        var pos = d3.csv('data/weekday_cluster.csv');
         pos.then(function (data) {
           // X axis
           var x = d3.scaleBand()
